@@ -1,46 +1,37 @@
 #include "main.h"
+
 /**
- * binary_to_uint - converts a binary to an unsigned int
- * @b: the binary number as a string
+ * binary_to_uint - Converts a binary string to an unsigned integer.
+ * @b: A pointer to a string of 0 and 1 characters.
  *
- * Return: the converted value
+ * characters in the string b that is not 0 or 1, or if b is NULL.
+ * Return: The converted unsigned integer, or 0 if there is one or more
  */
 unsigned int binary_to_uint(const char *b)
 {
-unsigned int decimal = 0;
-int str_len = 0, base = 1;
+	unsigned int result;
+	int legnth, second;
 
-if (!check_valid_string(b))
-return (0);
+	if (!b)
+		return (0);
 
-while (b[str_len] != '\0')
-str_len++;
+	result = 0;
 
-while (str_len)
-{
-decimal += ((b[str_len - 1] - '0') * base);
-base *= 2;
-str_len--;
-}
-return (decimal);
-}
+	for (legnth = 0; b[legnth] != '\0'; legnth++)
+		;
 
-/**
- * check_valid_string - checks if a string has only 0's and 1's
- * @b: string to be checked
- *
- * Return: 1 if string is valid, 0 otherwise
- */
-int check_valid_string(const char *b)
-{
-if (b == NULL)
-return (0);
+	for (legnth--, second = 1; legnth >= 0; legnth--, second *= 2)
+	{
+		if (b[legnth] != '0' && b[legnth] != '1')
+		{
+			return (0);
+		}
 
-while (*b)
-{
-if (*b != '1' && *b != '0')
-return (0);
-b++;
-}
-return (1);
+		if (b[legnth] & 1)
+		{
+			result += second;
+		}
+	}
+
+	return (result);
 }

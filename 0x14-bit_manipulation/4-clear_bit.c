@@ -1,18 +1,24 @@
 #include "main.h"
 
 /**
-*clear_bit - sets a bit at a position to 0
-*@n: number to be used
-*@index: position to be cleared
-*
-*Return: 1 on success, -1 on fail
-*/
-
+ * clear_bit - Put 0 as the bit value.
+ * for the given index.
+ * @n: un long int for the value.
+ * @index: bit indexx.
+ *
+ * Return: 1 if its working, -1 if it not workin.
+ */
 int clear_bit(unsigned long int *n, unsigned int index)
 {
-	if (n == NULL || (index > (sizeof(unsigned long int) * 8) - 1))
+	unsigned int a;
+
+	if (index > 63)
 		return (-1);
 
-	*n &= ~(1 << index);
+	a = 1 << index;
+
+	if (*n & a)
+		*n ^= a;
+
 	return (1);
 }
